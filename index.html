@@ -34,6 +34,11 @@
         <label for="search-box" class="fas fa-search"></label>
         </form>
     </div>
+    <div class="search-results" id="search-results">
+        <p id="no-results-message">Result not found</p>
+        <!-- Your search results go here -->
+    </div>
+    
 
     <section class="home" id="home">
    
@@ -222,5 +227,44 @@
     </section>
     <!-- footer section ends -->
     <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchBox = document.getElementById('search-box');
+            const searchResults = document.getElementById('search-results');
+            const noResultsMessage = document.getElementById('no-results-message');
+    
+            // Initially hide the "Result not found" message
+            noResultsMessage.style.display = 'none';
+    
+            searchBox.addEventListener('input', function () {
+                const searchTerm = searchBox.value.trim().toLowerCase();
+                const packages = document.querySelectorAll('.box');
+    
+                let hasResults = false;
+    
+                packages.forEach(function (package) {
+                    const packageName = package.querySelector('h3').innerText.toLowerCase();
+                    if (packageName.includes(searchTerm)) {
+                        package.style.display = 'block';
+                        hasResults = true;
+                    } else {
+                        package.style.display = 'none';
+                    }
+                });
+    
+                // Update the display based on search results
+                if (hasResults) {
+                    searchResults.style.display = 'block';
+                    noResultsMessage.style.display = 'none';
+                } else {
+                    searchResults.style.display = 'block';
+                    noResultsMessage.style.display = 'block';
+                }
+            });
+        });
+    </script>
+    
+    
+    
 </body>
 </html>
